@@ -48,17 +48,17 @@ class UserKeyboard:
             callback_data=f'page:{number_page}') for number_page in user_bookmarks
         ]
 
-        btn_cancel = InlineKeyboardButton(
-            text=LEXICON_RU['kb_btn_cancel'],
-            callback_data=Callbacks.CANCEL)
-
         btn_edit = InlineKeyboardButton(
             text=LEXICON_RU['kb_btn_edit'],
             callback_data=Callbacks.EDIT)
 
+        btn_cancel = InlineKeyboardButton(
+            text=LEXICON_RU['kb_btn_cancel'],
+            callback_data=Callbacks.CANCEL)
+
         builder = InlineKeyboardBuilder()
         builder.row(*buttons, width=1)
-        builder.row(btn_cancel, btn_edit, width=2)
+        builder.row(btn_edit, btn_cancel, width=2)
 
         return builder.as_markup()
 

@@ -83,7 +83,7 @@ async def press_page(callback: CallbackQuery, db: MyDatabase):
     user.last_page = page_number
     db.update(user)
 
-    await callback.message.answer(
+    await callback.message.edit_text(
         text=page_text,
         reply_markup=UserKeyboard.pagination(user=user, book=book)
     )
@@ -95,7 +95,7 @@ async def press_edit(callback: CallbackQuery, db: MyDatabase):
     user_id = callback.from_user.id
     user, book = get_user_and_book(user_id, db)
 
-    await callback.message.answer(
+    await callback.message.edit_text(
         text=LEXICON_RU['cb_edit'],
         reply_markup=UserKeyboard.bookmarks_edit(user=user, book=book)
     )
@@ -116,17 +116,17 @@ async def press_page_del(callback: CallbackQuery, db: MyDatabase):
         text=LEXICON_RU['cb_page_del'].format(page_number=page_number)
     )
 
-    if user.bookmarks:
-        await callback.message.answer(
+    if db.get_user(user.id).bookmarks:
+        await callback.message.edit_text(
             text=LEXICON_RU['cb_edit'],
             reply_markup=UserKeyboard.bookmarks_edit(user=user, book=book)
         )
         return
 
-    await callback.message.answer(text=LEXICON_RU['bookmarks']['no'])
+    await callback.message.edit_text(text=LEXICON_RU['/bookmarks']['no'])
 
 
 # Отменяет редактирование
 @router.callback_query(F.data == Callbacks.CANCEL)
 async def press_cancel(callback: CallbackQuery):
-    await callback.message.answer(text=LEXICON_RU['cb_cancel'])
+    await callback.message.edit_text(text=LEXICON_RU['cb_cancel'])
