@@ -60,14 +60,14 @@ async def command_bookmarks(message: Message, db: MyDatabase):
     user_id = message.from_user.id
     user, book = get_user_and_book(user_id, db)
 
-    user_bookmarks = user.bookmarks
-    if user_bookmarks is None:
-        await message.answer(text=LEXICON_RU['/bookmarks']['no'])
+    if user.bookmarks:
+        await message.answer(
+            text=LEXICON_RU['/bookmarks']['yes'],
+            reply_markup=UserKeyboard.bookmarks(user=user, book=book)
+        )
         return
 
-    await message.answer(text=LEXICON_RU['/bookmarks']['yes'],
-                         reply_markup=UserKeyboard.bookmarks(user=user, book=book)
-                         )
+    await message.answer(text=LEXICON_RU['/bookmarks']['no'])
 
 
 @router.message(Command(commands='help'))

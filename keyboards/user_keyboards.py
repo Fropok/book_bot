@@ -49,11 +49,11 @@ class UserKeyboard:
         ]
 
         btn_cancel = InlineKeyboardButton(
-            text='kb_btn_cancel',
+            text=LEXICON_RU['kb_btn_cancel'],
             callback_data=Callbacks.CANCEL)
 
         btn_edit = InlineKeyboardButton(
-            text='kb_btn_edit',
+            text=LEXICON_RU['kb_btn_edit'],
             callback_data=Callbacks.EDIT)
 
         builder = InlineKeyboardBuilder()
@@ -76,7 +76,7 @@ class UserKeyboard:
         ]
 
         btn_cancel = InlineKeyboardButton(
-            text='kb_btn_cancel',
+            text=LEXICON_RU['kb_btn_cancel'],
             callback_data=Callbacks.CANCEL)
 
         buttons.append(btn_cancel)
